@@ -2,7 +2,7 @@
 
 ## How to
 
-It’s generally good to have a canvas bigger than the image you want to alter.
+It’s generally good to have a canvas bigger than the image you want to alter. You’ll also probably want to save the file as `Large Document Format` (.psb) ass the file size gets real big, real fast.
 
 - Select a layer to apply the script to.
 - Go to `File` menu, choose `Scripts`, then `Browse…` and select the file you want to use
