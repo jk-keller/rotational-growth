@@ -92,10 +92,44 @@ var nl_degrees = parseInt(nonlethal_repeat * 360) + parseInt(nonlethal_degrees);
 nonlethal_rotate_layer.name = "rotated " + nl_degrees + "°";
 
 
+
+// set up animation
+
 // =======================================================
 // make sure it’s frame animation
 var idmakeFrameAnimation = stringIDToTypeID( "makeFrameAnimation" );
 executeAction( idmakeFrameAnimation, undefined, DialogModes.NO );
+
+// =======================================================
+var idduplicate = stringIDToTypeID( "duplicate" );
+    var desc3196 = new ActionDescriptor();
+    var idnull = stringIDToTypeID( "null" );
+        var ref124 = new ActionReference();
+        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
+        var idordinal = stringIDToTypeID( "ordinal" );
+        var idtargetEnum = stringIDToTypeID( "targetEnum" );
+        ref124.putEnumerated( idanimationFrameClass, idordinal, idtargetEnum );
+    desc3196.putReference( idnull, ref124 );
+executeAction( idduplicate, desc3196, DialogModes.NO );
+
+// =======================================================
+// select all animation frames
+var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
+    var desc88 = new ActionDescriptor();
+executeAction( idanimationSelectAll, desc88, DialogModes.NO );
+
+// =======================================================
+// delete existing animation frames if need be
+var iddelete = stringIDToTypeID( "delete" );
+    var desc77 = new ActionDescriptor();
+    var idnull = stringIDToTypeID( "null" );
+        var ref2323 = new ActionReference();
+        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
+        var idordinal = stringIDToTypeID( "ordinal" );
+        var idtargetEnum = stringIDToTypeID( "targetEnum" );
+        ref2323.putEnumerated( idanimationFrameClass, idordinal, idtargetEnum );
+    desc77.putReference( idnull, ref2323 );
+executeAction( iddelete, desc77, DialogModes.NO );
 
 // =======================================================
 // make animation from all layers
