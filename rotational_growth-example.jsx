@@ -5,6 +5,7 @@
 // 2022_07_18
 //
 
+var nonlethal_degrees = 0;
 var nonlethal_angle = 6.000000;
 var nonlethal_steps = 60;
 var nonlethal_repeat = 5;
@@ -19,6 +20,11 @@ var nonlethal_interpolation = "bicubicSharper";
 // preserveDetails?
 
 var nonlethal_rotate_layer = app.activeDocument.activeLayer;
+// check name to see if continuing previous repeats
+if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_layer.name.slice(-1) == "°" ) {
+    nonlethal_degrees = nonlethal_rotate_layer.name.slice(8,-1);
+    alert("Continuing from " + nonlethal_degrees + "°…");
+}
 nonlethal_rotate_layer.name = "rotating me…";
 
 
@@ -29,7 +35,8 @@ for (var nl_i=0; nl_i<nonlethal_repeat; nl_i++) {
     // =======================================================
     // duplicate layer, rename new layer, then selct the rotating layer again
     var nl_new_layer = nonlethal_rotate_layer.duplicate();
-    nl_new_layer.name = "rotated " + ( nl_i * 360 ) + "°";
+    var nl_degrees = parseInt(nl_i * 360) + parseInt(nonlethal_degrees);
+    nl_new_layer.name = "rotated " + nl_degrees + "°";
     app.activeDocument.activeLayer = nonlethal_rotate_layer;
 
 
@@ -81,7 +88,8 @@ for (var nl_i=0; nl_i<nonlethal_repeat; nl_i++) {
 
 
 // rename last layer
-nonlethal_rotate_layer.name = "rotated " + ( nonlethal_repeat * 360 ) + "°";
+var nl_degrees = parseInt(nonlethal_repeat * 360) + parseInt(nonlethal_degrees);
+nonlethal_rotate_layer.name = "rotated " + nl_degrees + "°";
 
 
 // =======================================================
