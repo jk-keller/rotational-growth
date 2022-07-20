@@ -19,7 +19,7 @@ var nonlethal_interpolation = "bicubicSharper";
 // preserveDetails?
 
 var nonlethal_rotate_layer = app.activeDocument.activeLayer;
-var nonlethal_rotate_layer_name = app.activeDocument.activeLayer.name;
+nonlethal_rotate_layer.name = "rotating me…";
 
 // with help from: https://stackoverflow.com/questions/63774170/get-layer-id-from-photoshop-layer
 // var ref = new ActionReference();
