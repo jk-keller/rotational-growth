@@ -11,7 +11,7 @@ var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of 
 
 var nonlethal_degrees = 0;
 // var nonlethal_angle = 0.500000;
-var nonlethal_steps = Math.ceil(360/nonlethal_angle);
+var nonlethal_steps = Math.ceil(360/Math.abs(nonlethal_angle));
 // var nonlethal_revolutions = 60;
 // var nonlethal_interpolation = "bicubicSharper";
 
