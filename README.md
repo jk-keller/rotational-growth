@@ -18,7 +18,8 @@ It’s generally good to have a canvas bigger than the image you want to alter. 
 - clip rotation at 360 (so if degrees = 133, then do 133, 133, 94)
 - add random actions / strokes / filters at times to alter the animation
 
-- add prompts for degrees, repeats, and interpolation
+- Dones:
+  - add prompts for degrees, repeats, and interpolation
 
 ---
 
