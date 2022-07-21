@@ -12,12 +12,13 @@ It’s generally good to have a canvas bigger than the image you want to alter. 
 
 ### Possible to dos:
 
-[x] add prompts for degrees, repeats, and interpolation
-[] recenter every revolution (nearest neighbor)
-[] error check the prompts for float & int?
-[] add layers for the first 2 revolutions
-[] clip rotation at 360 (so if degrees = 133, then do 133, 133, 94)
-[] add random actions / strokes / filters at times to alter the animation
+- recenter every revolution (nearest neighbor)
+- error check the prompts for float & int?
+- add layers for the first 2 revolutions
+- clip rotation at 360 (so if degrees = 133, then do 133, 133, 94)
+- add random actions / strokes / filters at times to alter the animation
+
+- add prompts for degrees, repeats, and interpolation
 
 ---
 
