@@ -5,14 +5,14 @@
 // 2022_07_18
 //
 
-var nonlethal_angle = parseFloat(prompt("Degrees per rotation?\r\r0–360, though 0, 90, 180, 270, 360 do nothing", "5"));
-var nonlethal_repeat = parseInt(prompt("How many rotations?\r\rProbably should keep this fairly low at first", "20"));
+var nonlethal_angle = parseFloat(prompt("Degrees per rotation?\r\r0–360, (0, 90, 180, 270, 360 do nothing tho)", "5"));
+var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rProbably should keep this fairly low at first", "20"));
 var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
 
 var nonlethal_degrees = 0;
 // var nonlethal_angle = 0.500000;
 var nonlethal_steps = Math.ceil(360/nonlethal_angle);
-// var nonlethal_repeat = 60;
+// var nonlethal_revolutions = 60;
 // var nonlethal_interpolation = "bicubicSharper";
 
 var nonlethal_rotate_layer = app.activeDocument.activeLayer;
@@ -25,7 +25,7 @@ nonlethal_rotate_layer.name = "rotating me…";
 
 
 // how many times to run full rotation?
-for (var nl_i=0; nl_i<nonlethal_repeat; nl_i++) {
+for (var nl_i=0; nl_i<nonlethal_revolutions; nl_i++) {
 
 
     // =======================================================
@@ -84,7 +84,7 @@ for (var nl_i=0; nl_i<nonlethal_repeat; nl_i++) {
 
 
 // rename last layer
-var nl_degrees = parseInt(nonlethal_repeat * 360) + parseInt(nonlethal_degrees);
+var nl_degrees = parseInt(nonlethal_revolutions * 360) + parseInt(nonlethal_degrees);
 nonlethal_rotate_layer.name = "rotated " + nl_degrees + "°";
 
 
