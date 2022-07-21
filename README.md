@@ -10,19 +10,6 @@ It’s generally good to have a canvas bigger than the image you want to alter. 
 
 ---
 
-### Possible to dos:
-
-- recenter every revolution (nearest neighbor)
-- error check the prompts for float & int?
-- clip rotation at 360 (so if degrees = 133, then do 133, 133, 94)
-- add random actions / strokes / filters at times to alter the animation
-
-- Dones:
-  - add prompts for degrees, repeats, and interpolation
-  - add layers for the first 2 revolutions
-
----
-
 by JK Keller, dilettante coder, use at your own risk
 
 https://jk-keller.com/o__o/rotational_growth
