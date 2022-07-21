@@ -5,19 +5,15 @@
 // 2022_07_18
 //
 
+var nonlethal_angle = parseFloat(prompt("Degrees per rotation?\r\r0–360, though 0, 90, 180, 270, 360 do nothing", "5"));
+var nonlethal_repeat = parseInt(prompt("How many rotations?\r\rProbably should keep this fairly low at first", "20"));
+var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
+
 var nonlethal_degrees = 0;
-var nonlethal_angle = 6.000000;
-var nonlethal_steps = 60;
-var nonlethal_repeat = 5;
-var nonlethal_interpolation = "bicubicSharper";
-// automatic ?
-// bicubic
-// bicubicAutomatic
-// bicubicSharper
-// bicubicSmoother
-// nearestNeighbor
-// none?
-// preserveDetails?
+// var nonlethal_angle = 0.500000;
+var nonlethal_steps = Math.ceil(360/nonlethal_angle);
+// var nonlethal_repeat = 60;
+// var nonlethal_interpolation = "bicubicSharper";
 
 var nonlethal_rotate_layer = app.activeDocument.activeLayer;
 // check name to see if continuing previous repeats

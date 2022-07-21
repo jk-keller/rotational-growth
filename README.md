@@ -12,7 +12,7 @@ It’s generally good to have a canvas bigger than the image you want to alter. 
 
 ### Possible to dos:
 
-[] add prompts for degrees, repeats, and interpolation
+[x] add prompts for degrees, repeats, and interpolation
 [] recenter every revolution (nearest neighbor)
 [] error check the prompts for float & int?
 [] add layers for the first 2 revolutions
