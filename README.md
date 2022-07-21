@@ -41,21 +41,27 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 ### Interpolation (2 degrees by 60 revolutions):
 
 > **bicubic**
+>
 > ![bicubic 60 revolutions](zzz--example_images/bicubic.png)
 
 > **bicubicSharper**
+>
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
+>
 > the best IMHO
 
 > **bicubicSmoother**
+>
 > ![bicubicSmoother 60 revolutions](zzz--example_images/bicubicsmoother.png)
 
 > **nearestNeighbor**
+>
 > ![nearestNeighbor 60 revolutions](zzz--example_images/nearestneighbor.png)
 
 ### Degrees (by 60 revolutions):
 
 > **2 degrees**
+>
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
 
 ---
