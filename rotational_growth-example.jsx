@@ -6,7 +6,7 @@
 //
 
 var nonlethal_angle = parseFloat(prompt("Degrees per rotation?\r\r0–360, (0, 90, 180, 270, 360 do nothing tho)", "5"));
-var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rProbably should keep this fairly low at first", "20"));
+var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rGreater than 2, but probably should keep this fairly low at first", "20"));
 var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
 
 var nonlethal_degrees = 0;
@@ -24,8 +24,66 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
 nonlethal_rotate_layer.name = "rotating me…";
 
 
+
+// run first two revolutions
+for (var nl_i=0; nl_i<2; nl_i++) {
+
+    // how many times to run change angle for full rotation?
+    for (var nl_j=0; nl_j<nonlethal_steps; nl_j++) {
+
+        // =======================================================
+        // duplicate layer, rename new layer, then selct the rotating layer again
+        var nl_new_layer = nonlethal_rotate_layer.duplicate();
+        var nl_degrees = parseInt(nl_i * 360) + parseInt(nl_j * parseInt(360/nonlethal_steps)) + parseInt(nonlethal_degrees);
+        nl_new_layer.name = "rotated " + nl_degrees + "°";
+        app.activeDocument.activeLayer = nonlethal_rotate_layer;
+
+        // =======================================================
+        // rotate
+        var idtransform = stringIDToTypeID( "transform" );
+            var desc7 = new ActionDescriptor();
+            var idnull = stringIDToTypeID( "null" );
+                var ref11 = new ActionReference();
+                var idlayer = stringIDToTypeID( "layer" );
+                var idordinal = stringIDToTypeID( "ordinal" );
+                var idtargetEnum = stringIDToTypeID( "targetEnum" );
+                ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
+            desc7.putReference( idnull, ref11 );
+            var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
+            var idquadCenterState = stringIDToTypeID( "quadCenterState" );
+            var idQCSAverage = stringIDToTypeID( "QCSAverage" );
+            desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
+            var idoffset = stringIDToTypeID( "offset" );
+                var desc23 = new ActionDescriptor();
+                var idhorizontal = stringIDToTypeID( "horizontal" );
+                var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+                desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
+                var idvertical = stringIDToTypeID( "vertical" );
+                var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+                desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
+            var idoffset = stringIDToTypeID( "offset" );
+            desc7.putObject( idoffset, idoffset, desc23 );
+            var idangle = stringIDToTypeID( "angle" );
+            var idangleUnit = stringIDToTypeID( "angleUnit" );
+            desc7.putUnitDouble( idangle, idangleUnit, nonlethal_angle );
+            var idlinked = stringIDToTypeID( "linked" );
+            desc7.putBoolean( idlinked, true );
+            var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
+            var idinterpolationType = stringIDToTypeID( "interpolationType" );
+            var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
+            desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
+        executeAction( idtransform, desc7, DialogModes.NO );
+
+
+    } // end loop to make full rotation
+
+
+} // end loop for repeat rotations
+
+
+
 // how many times to run full rotation?
-for (var nl_i=0; nl_i<nonlethal_revolutions; nl_i++) {
+for (var nl_i=2; nl_i<nonlethal_revolutions; nl_i++) {
 
 
     // =======================================================
