@@ -10,11 +10,11 @@ Did you know that if you repeatedly rotate an image in Photoshop (likely any app
 
 > ***And then:** the above image rotated by 2 degrees, 360 times (a.k.a 2 full revolutions)*
 > 
-> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicSharper.png)
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsharper.png)
 
 > ***But THEN:** the start image rotated by 2 degrees, 10800 times (a.k.a 60 full revolutions)*
 > 
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsharper.png)
 
 It may be hard to believe, but the ***only*** thing I did was rotate the first image thousands of times. See it as an animation: YOUTUBE link.
 
@@ -38,31 +38,39 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 
 ## Examples of settings:
 
-### Interpolation (2 degrees by 60 revolutions):
+### Interpolation (2 degrees by 2 & 60 revolutions):
 
 > **bicubic**
 >
-> ![bicubic 60 revolutions](zzz--example_images/bicubic.png)
+> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubic interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubic.png)
+>
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubic interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubic.png)
 
 > **bicubicSharper**
 >
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
+> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsharper.png)
+>
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsharper.png)
 >
 > the best IMHO
 
 > **bicubicSmoother**
 >
-> ![bicubicSmoother 60 revolutions](zzz--example_images/bicubicsmoother.png)
+> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsmoother.png)
+>
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsmoother.png)
 
 > **nearestNeighbor**
 >
-> ![nearestNeighbor 60 revolutions](zzz--example_images/nearestneighbor.png)
+> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-nearestneighbor.png)
+>
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-nearestneighbor.png)
 
 ### Degrees (by 60 revolutions):
 
 > **2 degrees**
 >
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsharper.png)
 
 ---
 
