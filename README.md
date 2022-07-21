@@ -4,17 +4,17 @@
 
 Did you know that if you repeatedly rotate an image in Photoshop (likely any app / framework with same interpolation algorithms), it eventually breaks down and may produce something similar to a differential growth alogrithm?
 
-> ![rainbow gradient start](zzz--example_images/hsb_366x2_rainbow-start.png)
-> 
 > ***The start:** HSB gradient (hue = 0–360, s = 100, b = 100), 361 × 2 px*
-
-> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicSharper.png)
 > 
+> ![rainbow gradient start](zzz--example_images/hsb_366x2_rainbow-start.png)
+
 > ***And then:** the above image rotated by 2 degrees, 360 times (a.k.a 2 full revolutions)*
-
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
 > 
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicSharper.png)
+
 > ***But THEN:** the start image rotated by 2 degrees, 10800 times (a.k.a 60 full revolutions)*
+> 
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
 
 Wild... you should see it as an animation: YOUTUBE link.
 
