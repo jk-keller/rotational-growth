@@ -16,7 +16,7 @@ Did you know that if you repeatedly rotate an image in Photoshop (likely any app
 > 
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicSharper.png)
 
-Wild... you should see it as an animation: YOUTUBE link.
+It may be hard to believe, but the ***only*** thing I did was rotate the first image thousands of times. See it as an animation: YOUTUBE link.
 
 ---
 
