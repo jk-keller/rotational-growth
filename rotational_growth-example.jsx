@@ -26,6 +26,31 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
 
 } else {
 
+    // =======================================================
+    // save as new file
+    var nl_path = app.activeDocument.path;
+    var nl_filename = nl_path + "--rotated--" + nonlethal_angle + "deg-" + nonlethal_interpolation + ".psb";
+
+    var idsave = stringIDToTypeID( "save" );
+        var desc5162 = new ActionDescriptor();
+        var idas = stringIDToTypeID( "as" );
+            var desc5163 = new ActionDescriptor();
+            var idmaximizeCompatibility = stringIDToTypeID( "maximizeCompatibility" );
+            desc5163.putBoolean( idmaximizeCompatibility, true );
+        var idlargeDocumentFormat = stringIDToTypeID( "largeDocumentFormat" );
+        desc5162.putObject( idas, idlargeDocumentFormat, desc5163 );
+        var idin = stringIDToTypeID( "in" );
+        desc5162.putPath( idin, new File( nl_filename ) );
+        var iddocumentID = stringIDToTypeID( "documentID" );
+        desc5162.putInteger( iddocumentID, 71123 );
+        var idlowerCase = stringIDToTypeID( "lowerCase" );
+        desc5162.putBoolean( idlowerCase, true );
+        var idsaveStage = stringIDToTypeID( "saveStage" );
+        var idsaveStageType = stringIDToTypeID( "saveStageType" );
+        var idsaveSucceeded = stringIDToTypeID( "saveSucceeded" );
+        desc5162.putEnumerated( idsaveStage, idsaveStageType, idsaveSucceeded );
+    executeAction( idsave, desc5162, DialogModes.NO );
+
     nonlethal_rotate_layer.name = "rotating me…";
 
     // run first two revolutions
@@ -150,7 +175,6 @@ var nl_degrees = parseInt(nonlethal_revolutions * 360) + parseInt(nonlethal_degr
 nonlethal_rotate_layer.name = "rotated " + nl_degrees + "°";
 
 
-
 // set up animation
 
 // =======================================================
@@ -214,3 +238,6 @@ var idreverse = stringIDToTypeID( "reverse" );
     desc888.putReference( idnull, ref8888 );
 executeAction( idreverse, desc888, DialogModes.NO );
 
+
+// save the file
+app.activeDocument.save();
