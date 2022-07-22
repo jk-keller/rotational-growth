@@ -5,31 +5,31 @@
 // 2022_07_18
 //
 
-var nonlethal_angle = parseFloat(prompt("Degrees per rotation?\r\r0–360, (0, 90, 180, 270, 360 do nothing tho)", "5"));
-var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rGreater than 2, but probably should keep this fairly low at first", "20"));
+var nonlethal_degree_per = parseFloat(prompt("Degrees per rotation?\r\r0–360, (0, 90, 180, 270, 360 do nothing tho)", "5"));
+var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rGreater than 2, but probably should keep this fairly low at first", "5"));
 var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
 
-var nonlethal_degrees = 0;
-// var nonlethal_angle = 0.500000;
-var nonlethal_steps = Math.ceil(360/Math.abs(nonlethal_angle));
-// var nonlethal_revolutions = 60;
-// var nonlethal_interpolation = "bicubicSharper";
+var nonlethal_iterations = 0; // the number of times the image is rotated
+var nonlethal_steps_per = Math.ceil(360/Math.abs(nonlethal_degree_per)); // ~ how many iterations per 360° (1 revolution)
+var nonlethal_degrees = 0; // the current amount of degree rotation
 
-var nonlethal_rotate_layer = app.activeDocument.activeLayer;
+var nonlethal_layer = app.activeDocument.activeLayer;
 
 // check name to see if continuing previous repeats
-if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_layer.name.slice(-1) == "°" ) {
-    nonlethal_degrees = nonlethal_rotate_layer.name.slice(8,-1);
-    alert("Continuing from " + nonlethal_degrees + "°…");
+var nl_split = nonlethal_layer.name.split(" ");
+if ( nl_split[2] == "iterations" ) {
+    nonlethal_iterations = nl_split[1];
+    nonlethal_degrees = nl_split[6].slice(0,-1);
+    alert("Continuing from " + nonlethal_iterations + " iterations and " + nonlethal_degrees + "°…");
 
-    nonlethal_rotate_layer.name = "rotating me…";
+    nonlethal_layer.name = "rotating me…";
 
 } else {
 
     // =======================================================
     // save as new file
     var nl_path = app.activeDocument.path;
-    var nl_filename = nl_path + "--rotated--" + nonlethal_angle + "deg-" + nonlethal_interpolation + ".psb";
+    var nonlethal_filename = nl_path + "/Rotated--" + nonlethal_degree_per + "deg-" + nonlethal_interpolation + ".psb";
 
     var idsave = stringIDToTypeID( "save" );
         var desc5162 = new ActionDescriptor();
@@ -40,7 +40,7 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
         var idlargeDocumentFormat = stringIDToTypeID( "largeDocumentFormat" );
         desc5162.putObject( idas, idlargeDocumentFormat, desc5163 );
         var idin = stringIDToTypeID( "in" );
-        desc5162.putPath( idin, new File( nl_filename ) );
+        desc5162.putPath( idin, new File( nonlethal_filename ) );
         var iddocumentID = stringIDToTypeID( "documentID" );
         desc5162.putInteger( iddocumentID, 71123 );
         var idlowerCase = stringIDToTypeID( "lowerCase" );
@@ -51,20 +51,19 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
         desc5162.putEnumerated( idsaveStage, idsaveStageType, idsaveSucceeded );
     executeAction( idsave, desc5162, DialogModes.NO );
 
-    nonlethal_rotate_layer.name = "rotating me…";
+    nonlethal_layer.name = "rotating me…";
 
     // run first two revolutions
     for (var nl_i=0; nl_i<2; nl_i++) {
 
         // how many times to run change angle for full rotation?
-        for (var nl_j=0; nl_j<nonlethal_steps; nl_j++) {
+        for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
 
             // =======================================================
             // duplicate layer, rename new layer, then selct the rotating layer again
-            var nl_new_layer = nonlethal_rotate_layer.duplicate();
-            var nl_degrees = parseInt(nl_i * 360) + parseInt(nl_j * parseInt(360/nonlethal_steps)) + parseInt(nonlethal_degrees);
-            nl_new_layer.name = "rotated " + nl_degrees + "°";
-            app.activeDocument.activeLayer = nonlethal_rotate_layer;
+            var nl_new_layer = nonlethal_layer.duplicate();
+            nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
+            app.activeDocument.activeLayer = nonlethal_layer;
 
             // =======================================================
             // rotate
@@ -93,7 +92,7 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
                 desc7.putObject( idoffset, idoffset, desc23 );
                 var idangle = stringIDToTypeID( "angle" );
                 var idangleUnit = stringIDToTypeID( "angleUnit" );
-                desc7.putUnitDouble( idangle, idangleUnit, nonlethal_angle );
+                desc7.putUnitDouble( idangle, idangleUnit, nonlethal_degree_per );
                 var idlinked = stringIDToTypeID( "linked" );
                 desc7.putBoolean( idlinked, true );
                 var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
@@ -102,6 +101,7 @@ if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_la
                 desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
             executeAction( idtransform, desc7, DialogModes.NO );
 
+            nonlethal_iterations++;
 
         } // end loop to make full rotation
 
@@ -117,14 +117,13 @@ for (var nl_i=2; nl_i<nonlethal_revolutions; nl_i++) {
 
     // =======================================================
     // duplicate layer, rename new layer, then selct the rotating layer again
-    var nl_new_layer = nonlethal_rotate_layer.duplicate();
-    var nl_degrees = parseInt(nl_i * 360) + parseInt(nonlethal_degrees);
-    nl_new_layer.name = "rotated " + nl_degrees + "°";
-    app.activeDocument.activeLayer = nonlethal_rotate_layer;
+    var nl_new_layer = nonlethal_layer.duplicate();
+    nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
+    app.activeDocument.activeLayer = nonlethal_layer;
 
 
     // how many times to run change angle for full rotation?
-    for (var nl_j=0; nl_j<nonlethal_steps; nl_j++) {
+    for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
 
 
         // =======================================================
@@ -154,7 +153,7 @@ for (var nl_i=2; nl_i<nonlethal_revolutions; nl_i++) {
             desc7.putObject( idoffset, idoffset, desc23 );
             var idangle = stringIDToTypeID( "angle" );
             var idangleUnit = stringIDToTypeID( "angleUnit" );
-            desc7.putUnitDouble( idangle, idangleUnit, nonlethal_angle );
+            desc7.putUnitDouble( idangle, idangleUnit, nonlethal_degree_per );
             var idlinked = stringIDToTypeID( "linked" );
             desc7.putBoolean( idlinked, true );
             var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
@@ -162,6 +161,8 @@ for (var nl_i=2; nl_i<nonlethal_revolutions; nl_i++) {
             var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
             desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
         executeAction( idtransform, desc7, DialogModes.NO );
+
+        nonlethal_iterations++;
 
 
     } // end loop to make full rotation
@@ -171,8 +172,7 @@ for (var nl_i=2; nl_i<nonlethal_revolutions; nl_i++) {
 
 
 // rename last layer
-var nl_degrees = parseInt(nonlethal_revolutions * 360) + parseInt(nonlethal_degrees);
-nonlethal_rotate_layer.name = "rotated " + nl_degrees + "°";
+nonlethal_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
 
 
 // set up animation
