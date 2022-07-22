@@ -70,9 +70,9 @@ if ( nonlethal_show_all > 0 ) {
                 desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
             executeAction( idtransform, desc7, DialogModes.NO );
 
-            nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
-
             nonlethal_iterations++;
+
+            nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
 
         } // end loop to make full rotation
 
@@ -133,9 +133,9 @@ for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
             desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
         executeAction( idtransform, desc7, DialogModes.NO );
 
-        nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
-
         nonlethal_iterations++;
+
+        nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
 
 
     } // end loop to make full rotation
