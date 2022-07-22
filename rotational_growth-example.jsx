@@ -12,7 +12,6 @@ var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rGreater th
 var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
 var nonlethal_show_all = parseFloat(prompt("Show rotation for the first how many revolutions?\r\rProbably want to keep small small", "0"));
 
-// =======================================================
 // initialize variables
 var nonlethal_iterations = 0;                                            // the number of times the image is rotated
 var nonlethal_steps_per = Math.ceil(360/Math.abs(nonlethal_degree_per)); // ~ how many iterations per 360° (1 revolution)
@@ -22,14 +21,14 @@ var nonlethal_degrees = 0;                                               // the 
 // show the first few revolutions’ rotation
 if ( nonlethal_show_all > 0 ) {
 
-    // run first two revolutions
+    // loop for first few revolutions
     for (var nl_i=0; nl_i<nonlethal_show_all; nl_i++) {
 
-        // how many times to run change angle for full rotation?
+        // loop for single revolution
         for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
 
             // =======================================================
-            // duplicate layer, rename new layer, then selct the rotating layer again
+            // duplicate layer and select it
             var nl_new_layer = app.activeDocument.activeLayer.duplicate();
             app.activeDocument.activeLayer = nl_new_layer;
 
@@ -73,27 +72,24 @@ if ( nonlethal_show_all > 0 ) {
 
             nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
 
-        } // end loop to make full rotation
+        } // end loop for single revolution
+
+    } // end loop for first few revolutions
+
+} // end if show the first few revolutions’ rotation
 
 
-    } // end loop for repeat rotations
-
-} // end if not continuing
-
-
-// how many times to run full rotation?
+// loop for number of revolutions
 for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
 
-
     // =======================================================
-    // duplicate layer, rename new layer, then selct the rotating layer again
+    // duplicate layer and select it
     var nl_new_layer = app.activeDocument.activeLayer.duplicate();
     app.activeDocument.activeLayer = nl_new_layer;
 
 
-    // how many times to run change angle for full rotation?
+    // loop for single revolution
     for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
-
 
         // =======================================================
         // rotate
@@ -135,11 +131,9 @@ for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
 
         nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
 
+    } // end loop for single revolution
 
-    } // end loop to make full rotation
-
-
-} // end loop for repeat rotations
+} // end loop for number of revolutions
 
 
 // =======================================================
