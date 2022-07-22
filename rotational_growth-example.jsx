@@ -16,70 +16,74 @@ var nonlethal_steps = Math.ceil(360/Math.abs(nonlethal_angle));
 // var nonlethal_interpolation = "bicubicSharper";
 
 var nonlethal_rotate_layer = app.activeDocument.activeLayer;
+
 // check name to see if continuing previous repeats
 if ( nonlethal_rotate_layer.name.slice(0,8) == "rotated " && nonlethal_rotate_layer.name.slice(-1) == "°" ) {
     nonlethal_degrees = nonlethal_rotate_layer.name.slice(8,-1);
     alert("Continuing from " + nonlethal_degrees + "°…");
-}
-nonlethal_rotate_layer.name = "rotating me…";
+
+    nonlethal_rotate_layer.name = "rotating me…";
+
+} else {
+
+    nonlethal_rotate_layer.name = "rotating me…";
+
+    // run first two revolutions
+    for (var nl_i=0; nl_i<2; nl_i++) {
+
+        // how many times to run change angle for full rotation?
+        for (var nl_j=0; nl_j<nonlethal_steps; nl_j++) {
+
+            // =======================================================
+            // duplicate layer, rename new layer, then selct the rotating layer again
+            var nl_new_layer = nonlethal_rotate_layer.duplicate();
+            var nl_degrees = parseInt(nl_i * 360) + parseInt(nl_j * parseInt(360/nonlethal_steps)) + parseInt(nonlethal_degrees);
+            nl_new_layer.name = "rotated " + nl_degrees + "°";
+            app.activeDocument.activeLayer = nonlethal_rotate_layer;
+
+            // =======================================================
+            // rotate
+            var idtransform = stringIDToTypeID( "transform" );
+                var desc7 = new ActionDescriptor();
+                var idnull = stringIDToTypeID( "null" );
+                    var ref11 = new ActionReference();
+                    var idlayer = stringIDToTypeID( "layer" );
+                    var idordinal = stringIDToTypeID( "ordinal" );
+                    var idtargetEnum = stringIDToTypeID( "targetEnum" );
+                    ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
+                desc7.putReference( idnull, ref11 );
+                var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
+                var idquadCenterState = stringIDToTypeID( "quadCenterState" );
+                var idQCSAverage = stringIDToTypeID( "QCSAverage" );
+                desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
+                var idoffset = stringIDToTypeID( "offset" );
+                    var desc23 = new ActionDescriptor();
+                    var idhorizontal = stringIDToTypeID( "horizontal" );
+                    var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+                    desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
+                    var idvertical = stringIDToTypeID( "vertical" );
+                    var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+                    desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
+                var idoffset = stringIDToTypeID( "offset" );
+                desc7.putObject( idoffset, idoffset, desc23 );
+                var idangle = stringIDToTypeID( "angle" );
+                var idangleUnit = stringIDToTypeID( "angleUnit" );
+                desc7.putUnitDouble( idangle, idangleUnit, nonlethal_angle );
+                var idlinked = stringIDToTypeID( "linked" );
+                desc7.putBoolean( idlinked, true );
+                var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
+                var idinterpolationType = stringIDToTypeID( "interpolationType" );
+                var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
+                desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
+            executeAction( idtransform, desc7, DialogModes.NO );
 
 
-
-// run first two revolutions
-for (var nl_i=0; nl_i<2; nl_i++) {
-
-    // how many times to run change angle for full rotation?
-    for (var nl_j=0; nl_j<nonlethal_steps; nl_j++) {
-
-        // =======================================================
-        // duplicate layer, rename new layer, then selct the rotating layer again
-        var nl_new_layer = nonlethal_rotate_layer.duplicate();
-        var nl_degrees = parseInt(nl_i * 360) + parseInt(nl_j * parseInt(360/nonlethal_steps)) + parseInt(nonlethal_degrees);
-        nl_new_layer.name = "rotated " + nl_degrees + "°";
-        app.activeDocument.activeLayer = nonlethal_rotate_layer;
-
-        // =======================================================
-        // rotate
-        var idtransform = stringIDToTypeID( "transform" );
-            var desc7 = new ActionDescriptor();
-            var idnull = stringIDToTypeID( "null" );
-                var ref11 = new ActionReference();
-                var idlayer = stringIDToTypeID( "layer" );
-                var idordinal = stringIDToTypeID( "ordinal" );
-                var idtargetEnum = stringIDToTypeID( "targetEnum" );
-                ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
-            desc7.putReference( idnull, ref11 );
-            var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
-            var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-            var idQCSAverage = stringIDToTypeID( "QCSAverage" );
-            desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
-            var idoffset = stringIDToTypeID( "offset" );
-                var desc23 = new ActionDescriptor();
-                var idhorizontal = stringIDToTypeID( "horizontal" );
-                var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
-                var idvertical = stringIDToTypeID( "vertical" );
-                var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
-            var idoffset = stringIDToTypeID( "offset" );
-            desc7.putObject( idoffset, idoffset, desc23 );
-            var idangle = stringIDToTypeID( "angle" );
-            var idangleUnit = stringIDToTypeID( "angleUnit" );
-            desc7.putUnitDouble( idangle, idangleUnit, nonlethal_angle );
-            var idlinked = stringIDToTypeID( "linked" );
-            desc7.putBoolean( idlinked, true );
-            var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
-            var idinterpolationType = stringIDToTypeID( "interpolationType" );
-            var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
-            desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
-        executeAction( idtransform, desc7, DialogModes.NO );
+        } // end loop to make full rotation
 
 
-    } // end loop to make full rotation
+    } // end loop for repeat rotations
 
-
-} // end loop for repeat rotations
-
+} // end if not continuing
 
 
 // how many times to run full rotation?
