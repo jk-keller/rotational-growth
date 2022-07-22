@@ -10,7 +10,7 @@
 var nonlethal_degree_per = parseFloat(prompt("Degrees per rotation?\r\r0–360, (0, 90, 180, 270, 360 do nothing tho)", "5"));
 var nonlethal_revolutions = parseInt(prompt("How many revolutions?\r\rGreater than 2, but probably should keep this fairly low at first", "5"));
 var nonlethal_interpolation = prompt("Rotation Interpolation?\r\rMust be one of these four (bicubicSharper is my fave):\rbicubic\rbicubicSharper\rbicubicSmoother\rnearestNeighbor", "bicubicSharper");
-var nonlethal_show_all = parseFloat(prompt("Show rotation for the first how many revolutions?\r\r", "0"));
+var nonlethal_show_all = parseFloat(prompt("Show rotation for the first how many revolutions?\r\rProbably want to keep small small", "0"));
 
 // =======================================================
 // initialize variables
@@ -19,7 +19,7 @@ var nonlethal_steps_per = Math.ceil(360/Math.abs(nonlethal_degree_per)); // ~ ho
 var nonlethal_degrees = 0;                                               // the current amount of degree rotation
 
 
-// show the first few revolutions rotation
+// show the first few revolutions’ rotation
 if ( nonlethal_show_all > 0 ) {
 
     // run first two revolutions
@@ -31,7 +31,6 @@ if ( nonlethal_show_all > 0 ) {
             // =======================================================
             // duplicate layer, rename new layer, then selct the rotating layer again
             var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-            nl_new_layer.name = "rotating me..."
             app.activeDocument.activeLayer = nl_new_layer;
 
             // =======================================================
@@ -89,7 +88,6 @@ for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
     // =======================================================
     // duplicate layer, rename new layer, then selct the rotating layer again
     var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-    nl_new_layer.name = "rotating me..."
     app.activeDocument.activeLayer = nl_new_layer;
 
 
@@ -144,7 +142,8 @@ for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
 } // end loop for repeat rotations
 
 
-// set up animation
+// =======================================================
+// set up animation - clear what’s there, then frames from layers
 
 // =======================================================
 // make sure it’s frame animation
@@ -152,6 +151,7 @@ var idmakeFrameAnimation = stringIDToTypeID( "makeFrameAnimation" );
 executeAction( idmakeFrameAnimation, undefined, DialogModes.NO );
 
 // =======================================================
+// Needed to duplicate frame in order for the deletion to work
 var idduplicate = stringIDToTypeID( "duplicate" );
     var desc3196 = new ActionDescriptor();
     var idnull = stringIDToTypeID( "null" );
@@ -187,23 +187,4 @@ executeAction( iddelete, desc77, DialogModes.NO );
 var idanimationFramesFromLayers = stringIDToTypeID( "animationFramesFromLayers" );
     var desc8 = new ActionDescriptor();
 executeAction( idanimationFramesFromLayers, desc8, DialogModes.NO );
-
-// // =======================================================
-// // select all animation frames
-// var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
-//     var desc88 = new ActionDescriptor();
-// executeAction( idanimationSelectAll, desc88, DialogModes.NO );
-
-// // =======================================================
-// // reverse animation frames
-// var idreverse = stringIDToTypeID( "reverse" );
-//     var desc888 = new ActionDescriptor();
-//     var idnull = stringIDToTypeID( "null" );
-//         var ref8888 = new ActionReference();
-//         var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-//         var idordinal = stringIDToTypeID( "ordinal" );
-//         var idtargetEnum = stringIDToTypeID( "targetEnum" );
-//         ref8888.putEnumerated( idanimationFrameClass, idordinal, idtargetEnum );
-//     desc888.putReference( idnull, ref8888 );
-// executeAction( idreverse, desc888, DialogModes.NO );
 
