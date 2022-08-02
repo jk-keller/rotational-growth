@@ -1,3 +1,5 @@
+// °× ← here to force unicode characters to work. Thanks Justin T!
+// https://community.adobe.com/t5/after-effects-discussions/utf-encoding-unicode-in-script-ui-extendscript/td-p/11511596
 //
 // by JK Keller, dilettante coder, use at your own risk
 // https://jk-keller.com/o__o/rotational_growth
