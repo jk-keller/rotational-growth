@@ -51,14 +51,19 @@ var interpolationpanel = group2.add("panel", undefined, undefined, {name: "inter
     interpolationpanel.spacing = 10; 
     interpolationpanel.margins = 16; 
 
-var radiobutton1 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton1"}); 
+var interpgroup1 = interpolationpanel.add("group", undefined, {name: "interpgroup1"}); 
+    interpgroup1.orientation = "column"; 
+    interpgroup1.alignChildren = ["left","top"]; 
+    interpgroup1.spacing = 10; 
+
+var radiobutton1 = interpgroup1.add("radiobutton", undefined, undefined, {name: "radiobutton1"}); 
     radiobutton1.text = "bicubic"; 
     radiobutton1.value = true; 
 
-var radiobutton2 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton2"}); 
+var radiobutton2 = interpgroup1.add("radiobutton", undefined, undefined, {name: "radiobutton2"}); 
     radiobutton2.text = "bicubicSharper"; 
 
-var radiobutton3 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton3"}); 
+var radiobutton3 = interpgroup1.add("radiobutton", undefined, undefined, {name: "radiobutton3"}); 
     radiobutton3.text = "bicubicSmoother"; 
 
 var divider1 = interpolationpanel.add("panel", undefined, undefined, {name: "divider1"}); 
@@ -67,11 +72,27 @@ var divider1 = interpolationpanel.add("panel", undefined, undefined, {name: "div
 var statictext2 = interpolationpanel.add("statictext", undefined, undefined, {name: "statictext2"}); 
     statictext2.text = "These two do not make Turing patterns:"; 
 
-var radiobutton4 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton4"}); 
+var interpgroup2 = interpolationpanel.add("group", undefined, {name: "interpgroup2"}); 
+    interpgroup2.orientation = "column"; 
+    interpgroup2.alignChildren = ["left","top"]; 
+    interpgroup2.spacing = 10; 
+
+var radiobutton4 = interpgroup2.add("radiobutton", undefined, undefined, {name: "radiobutton4"}); 
     radiobutton4.text = "bilinear"; 
 
-var radiobutton5 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton5"}); 
+var radiobutton5 = interpgroup2.add("radiobutton", undefined, undefined, {name: "radiobutton5"}); 
     radiobutton5.text = "nearestNeighbor"; 
+
+interpgroup1.addEventListener ("click", function () {
+    for (var i = 0; i < 2; i++) {
+        interpgroup2.children[i].value = false;
+    }
+});
+interpgroup2.addEventListener ("click", function () {
+    for (var i = 0; i < 3; i++) {
+        interpgroup1.children[i].value = false;
+    }
+});
 
 // anchorpanel
 // ======
@@ -259,12 +280,15 @@ var anchorsarray = [
     ["QCSCorner3","QCSSide2","QCSCorner2"]
 ];
 
-function selected_interpolation (agroup) {
-    for (var i = 0; i < agroup.children.length; i++) {
-        if (agroup.children[i].value == true) { return agroup.children[i].text;}
+function selected_interpolation(agroup) {
+    for (var i = 0; i < interpgroup1.children.length; i++) {
+        if (interpgroup1.children[i].value == true) { return interpgroup1.children[i].text;}
+    }
+    for (var j = 0; j < interpgroup2.children.length; j++) {
+        if (interpgroup2.children[j].value == true) { return interpgroup2.children[j].text;}
     }
 }
-function selected_anchorpoint (agroup) {
+function selected_anchorpoint(agroup) {
     for (var i = 0; i < agroup.children.length; i++) {
         for (var j = 0; j < 3; j++) {
             if (agroup.children[i].children[j].value == true) { return anchorsarray[i][j]; }
