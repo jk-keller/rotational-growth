@@ -194,8 +194,8 @@ var iterationstext = group7.add("statictext", undefined, undefined, {name: "iter
 var divider2 = panel3.add("panel", undefined, undefined, {name: "divider2"}); 
     divider2.alignment = "fill"; 
 
-var checkbox1 = panel3.add("checkbox", undefined, undefined, {name: "checkbox1"}); 
-    checkbox1.text = "Counter-clockwise"; 
+var counterclockwise = panel3.add("checkbox", undefined, undefined, {name: "counterclockwise"}); 
+    counterclockwise.text = "Counter-clockwise"; 
 
 var divider3 = panel3.add("panel", undefined, undefined, {name: "divider3"}); 
     divider3.alignment = "fill"; 
@@ -280,6 +280,9 @@ if (dialog.show() == 1) {
 
     var nonlethal_show_all = showrotationvalue.text;
     var nonlethal_anchorpoint = selected_anchorpoint(anchorpanel);
+    if (counterclockwise.value == true) {
+        nonlethal_degree_per *= -1;
+    }
 
     // initialize variables
     var nonlethal_iterations = 0;  // the current number of times the image is rotated
