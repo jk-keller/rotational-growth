@@ -60,6 +60,12 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsmoother.png)
 
+> **bilineer**
+>
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bilinear interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bilinear.png)
+>
+> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bilinear interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bilinear.png)
+
 > **nearestNeighbor**
 >
 > ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-nearestneighbor.png)
