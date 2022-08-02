@@ -73,19 +73,19 @@ var radiobutton4 = interpolationpanel.add("radiobutton", undefined, undefined, {
 var radiobutton5 = interpolationpanel.add("radiobutton", undefined, undefined, {name: "radiobutton5"}); 
     radiobutton5.text = "nearestNeighbor"; 
 
-// PANEL2
+// anchorpanel
 // ======
-var panel2 = group2.add("panel", undefined, undefined, {name: "panel2"}); 
-    panel2.text = "Anchor Point"; 
-    panel2.orientation = "column"; 
-    panel2.alignChildren = ["center","top"]; 
-    panel2.spacing = 10; 
-    panel2.margins = 16; 
-    panel2.helpTip = "What point should image rotate around";
+var anchorpanel = group2.add("panel", undefined, undefined, {name: "anchorpanel"}); 
+    anchorpanel.text = "Anchor Point"; 
+    anchorpanel.orientation = "column"; 
+    anchorpanel.alignChildren = ["center","top"]; 
+    anchorpanel.spacing = 10; 
+    anchorpanel.margins = 16; 
+    anchorpanel.helpTip = "What point should image rotate around";
 
 // GROUP3
 // ======
-var group3 = panel2.add("group", undefined, {name: "group3"}); 
+var group3 = anchorpanel.add("group", undefined, {name: "group3"}); 
     group3.orientation = "row"; 
     group3.alignChildren = ["center","center"]; 
     group3.spacing = 10; 
@@ -97,7 +97,7 @@ var radiobutton8 = group3.add("radiobutton", undefined, undefined, {name: "radio
 
 // GROUP4
 // ======
-var group4 = panel2.add("group", undefined, {name: "group4"}); 
+var group4 = anchorpanel.add("group", undefined, {name: "group4"}); 
     group4.orientation = "row"; 
     group4.alignChildren = ["center","center"]; 
     group4.spacing = 10; 
@@ -110,7 +110,7 @@ var radiobutton11 = group4.add("radiobutton", undefined, undefined, {name: "radi
 
 // GROUP5
 // ======
-var group5 = panel2.add("group", undefined, {name: "group5"}); 
+var group5 = anchorpanel.add("group", undefined, {name: "group5"}); 
     group5.orientation = "row"; 
     group5.alignChildren = ["center","center"]; 
     group5.spacing = 10; 
@@ -160,7 +160,7 @@ var group6 = panel3.add("group", undefined, {name: "group6"});
     group6.margins = 0; 
 
 var stepsvalue = group6.add('edittext {properties: {name: "stepsvalue"}}'); 
-    stepsvalue.text = "72"; 
+    stepsvalue.text = "5"; 
     stepsvalue.preferredSize.width = 50; 
     stepsvalue.helpTip = "0, 1, 2, 4 do nothing tho.";
 
@@ -209,7 +209,7 @@ var statictext7 = panel3.add("group");
     statictext7.add("statictext", undefined, "show all rotations", {name: "statictext72"}); 
 
 var showrotationvalue = panel3.add('edittext {properties: {name: "showrotationvalue"}}'); 
-    showrotationvalue.text = "1"; 
+    showrotationvalue.text = "0"; 
     showrotationvalue.preferredSize.width = 50; 
     showrotationvalue.helpTip = "A layer will be created for every iteration of these revolutions.";
 
@@ -218,6 +218,7 @@ var divider5 = panel3.add("panel", undefined, undefined, {name: "divider5"});
 
 var layerstext = panel3.add("statictext", undefined, undefined, {name: "layerstext"}); 
     layerstext.text = "Will result in 77 new layers."; 
+    layerstext.graphics.font = ScriptUI.newFont("Arial","BOLD",16);
 
 
 // DIALOG
@@ -251,9 +252,23 @@ showrotationvalue.onChanging = function () {
     layerstext.text = "Will result in " + Math.ceil (Number (stepsvalue.text) * Number (showrotationvalue.text) + Number (revsvalue.text)) + " new layers";
 };
 
-function selected_rbutton (rbuttons) {
-    for (var i = 0; i < rbuttons.children.length; i++) {
-        if (rbuttons.children[i].value == true) { return rbuttons.children[i].text;}
+
+var anchorsarray = [
+    ["QCSCorner0","QCSSide0","QCSCorner1"],
+    ["QCSSide3","QCSAverage","QCSSide1"],
+    ["QCSCorner3","QCSSide2","QCSCorner2"]
+];
+
+function selected_interpolation (agroup) {
+    for (var i = 0; i < agroup.children.length; i++) {
+        if (agroup.children[i].value == true) { return agroup.children[i].text;}
+    }
+}
+function selected_anchorpoint (agroup) {
+    for (var i = 0; i < agroup.children.length; i++) {
+        for (var j = 0; j < 3; j++) {
+            if (agroup.children[i].children[j].value == true) { return anchorsarray[i][j]; }
+        }
     }
 }
 
@@ -261,8 +276,9 @@ if (dialog.show() == 1) {
     var nonlethal_steps_per = stepsvalue.text;
     var nonlethal_degree_per = 360 / stepsvalue.text;
     var nonlethal_revolutions = revsvalue.text;
-    var nonlethal_interpolation = selected_rbutton(interpolationpanel);
+    var nonlethal_interpolation = selected_interpolation(interpolationpanel);
     var nonlethal_show_all = showrotationvalue.text;
+    var nonlethal_anchorpoint = selected_anchorpoint(anchorpanel);
 
     // initialize variables
     var nonlethal_iterations = 0;                                            // the current number of times the image is rotated
@@ -297,7 +313,7 @@ if (dialog.show() == 1) {
                     desc7.putReference( idnull, ref11 );
                     var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
                     var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-                    var idQCSAverage = stringIDToTypeID( "QCSAverage" );
+                    var idQCSAverage = stringIDToTypeID( nonlethal_anchorpoint );
                     desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
                     var idoffset = stringIDToTypeID( "offset" );
                         var desc23 = new ActionDescriptor();
@@ -384,7 +400,7 @@ if (dialog.show() == 1) {
                     desc7.putReference( idnull, ref11 );
                     var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
                     var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-                    var idQCSAverage = stringIDToTypeID( "QCSAverage" );
+                    var idQCSAverage = stringIDToTypeID( nonlethal_anchorpoint );
                     desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
                     var idoffset = stringIDToTypeID( "offset" );
                         var desc23 = new ActionDescriptor();
@@ -449,7 +465,7 @@ if (dialog.show() == 1) {
                     desc7.putReference( idnull, ref11 );
                     var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
                     var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-                    var idQCSAverage = stringIDToTypeID( "QCSAverage" );
+                    var idQCSAverage = stringIDToTypeID( nonlethal_anchorpoint );
                     desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
                     var idoffset = stringIDToTypeID( "offset" );
                         var desc23 = new ActionDescriptor();
