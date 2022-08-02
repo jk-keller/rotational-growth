@@ -338,7 +338,7 @@ if (dialog.show() == 1) {
 
                 nonlethal_iterations++;
 
-                nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
+                nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + (Math.round(nonlethal_degree_per*100)/100) + "° equals " + (Math.round((nonlethal_iterations * nonlethal_degree_per)*100)/100) + "°";
 
             } // end loop for single revolution
 
@@ -365,12 +365,12 @@ if (dialog.show() == 1) {
             var nl_rev_flag = false;
             var nl_temp_degrees = nonlethal_degrees + nonlethal_degree_per;
             if (nl_temp_degrees > 360) {
-            alert (nl_temp_degrees);
+            // alert (nl_temp_degrees);
                 var nl_diff_degree_per = 360 - nonlethal_degrees;
                 nonlethal_degrees -= 360;
                 nl_rev_flag = true;
             } else if (nl_temp_degrees < -360) {
-            alert (nl_temp_degrees);
+            // alert (nl_temp_degrees);
                 var nl_diff_degree_per = -360 - nonlethal_degrees;
                 nonlethal_degrees += 360;
                 nl_rev_flag = true;
@@ -423,7 +423,7 @@ if (dialog.show() == 1) {
                     desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
                 executeAction( idtransform, desc7, DialogModes.NO );
 
-                nl_diff_layer.name = "between " + nonlethal_iterations + "/" + (nonlethal_iterations+1) + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per + nl_diff_degree_per) + "°";
+                nl_diff_layer.name = "between " + nonlethal_iterations + "/" + (nonlethal_iterations+1) + " iterations of " + (Math.round(nonlethal_degree_per*100)/100) + "° equals " + (nonlethal_iterations * nonlethal_degree_per + nl_diff_degree_per) + "°";
 
                 app.activeDocument.activeLayer = nl_prev_layer;
 
@@ -490,7 +490,7 @@ if (dialog.show() == 1) {
 
                 nonlethal_iterations++;
 
-                nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + nonlethal_degree_per + "° equals " + (nonlethal_iterations * nonlethal_degree_per) + "°";
+                nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + (Math.round(nonlethal_degree_per*100)/100) + "° equals " + (Math.round((nonlethal_iterations * nonlethal_degree_per)*100)/100) + "°";
 
             } // end if we crossed 360 degrees
 
