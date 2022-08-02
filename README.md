@@ -39,6 +39,8 @@ It’s generally good to have a canvas that’s bigger than the image you want t
     - Whether you want it rotate counter-clockwise or not.
 - The window should show you the number of rotation iterations and new lyers that will be created in the file. I'd keep these low until you understand how long the script can take.
 - Sit back and wait 🍸
+- When complete, there will be a frame animation of all the layers.
+- The file will be saved automatically periodically and when complete.
 
 ---
 

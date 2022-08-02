@@ -384,6 +384,10 @@ if (dialog.show() == 1) {
     // loop for number of revolutions
     for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
 
+        if (nl_i % 10 == 0) {
+            app.activeDocument.save();
+        }
+
         // =======================================================
         // duplicate layer and select it
         var nl_new_layer = app.activeDocument.activeLayer.duplicate();
@@ -492,3 +496,5 @@ if (dialog.show() == 1) {
 dialog.close();
 // dialog.show();
 // dialog.close();
+
+app.activeDocument.save();
