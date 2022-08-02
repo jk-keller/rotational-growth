@@ -271,6 +271,11 @@ var anchorsarray = [
     ["QCSSide3","QCSAverage","QCSSide1"],
     ["QCSCorner3","QCSSide2","QCSCorner2"]
 ];
+var anchorsnamesarray = [
+    ["Top Left","Top","Top Right"],
+    ["Left","Center","Right"],
+    ["Bottom Left","Bottom","Bottom Right"]
+];
 
 function selected_interpolation(agroup) {
     for (var i = 0; i < interpgroup1.children.length; i++) {
@@ -287,6 +292,13 @@ function selected_anchorpoint(agroup) {
         }
     }
 }
+function selected_anchorpointname(agroup) {
+    for (var i = 0; i < agroup.children.length; i++) {
+        for (var j = 0; j < 3; j++) {
+            if (agroup.children[i].children[j].value == true) { return anchorsnamesarray[i][j]; }
+        }
+    }
+}
 
 if (dialog.show() == 1) {
     var nonlethal_steps_per = stepsvalue.text;
@@ -296,6 +308,7 @@ if (dialog.show() == 1) {
 
     var nonlethal_show_all = showrotationvalue.text;
     var nonlethal_anchorpoint = selected_anchorpoint(anchorpanel);
+    var nonlethal_anchorpointname = selected_anchorpointname(anchorpanel);
     if (counterclockwise.value == true) {
         nonlethal_degree_per *= -1;
     }
@@ -304,6 +317,7 @@ if (dialog.show() == 1) {
     var nonlethal_iterations = 0;  // the current number of times the image is rotated
     var nonlethal_degrees = 0;     // the current amount of degree rotation
 
+    app.activeDocument.activeLayer.name = "start layer - " + nonlethal_interpolation + " - " + nonlethal_anchorpointname;
 
     // show the first few revolutions’ rotation
     if ( nonlethal_show_all > 0 ) {
@@ -318,7 +332,7 @@ if (dialog.show() == 1) {
                 // duplicate layer and select it
                 var nl_new_layer = app.activeDocument.activeLayer.duplicate();
                 app.activeDocument.activeLayer = nl_new_layer;
-                app.refresh();
+                // app.refresh();
 
                 // =======================================================
                 // rotate
