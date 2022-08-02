@@ -1,4 +1,4 @@
-# Rotational Growth Photoshop Script
+# *Turning into Turing*, A Rotational Growth Photoshop Script
 
 ## How did this, become this, become that?
 
@@ -38,17 +38,17 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 
 ## Examples of settings:
 
-### Interpolation (2 degrees by 2 & 60 revolutions):
+### Interpolation (2 degrees: 2 revolutions & 60 revolutions):
 
 > **bicubic**
 >
-> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubic interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubic.png)
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubic interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubic.png)
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubic interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubic.png)
 
 > **bicubicSharper**
 >
-> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsharper.png)
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsharper.png)
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsharper.png)
 >
@@ -56,21 +56,41 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 
 > **bicubicSmoother**
 >
-> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsmoother.png)
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-bicubicsmoother.png)
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsmoother.png)
 
 > **nearestNeighbor**
 >
-> ![rainbow gradient rotated 2 degrees, 720 times (2 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-nearestneighbor.png)
+> ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-2rev-nearestneighbor.png)
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-nearestneighbor.png)
 
-### Degrees (by 60 revolutions):
+### Degrees (rotated 10800 times):
+
+> **1 degree**
+>
+> ![rainbow gradient rotated 1 degrees, 10800 times (30 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-1deg-30rev-bicubicsharper.png)
 
 > **2 degrees**
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-2deg-60rev-bicubicsharper.png)
+
+> **3 degrees**
+>
+> ![rainbow gradient rotated 3 degrees, 10800 times (90 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-3deg-90rev-bicubicsharper.png)
+
+> **4 degrees**
+>
+> ![rainbow gradient rotated 4 degrees, 10800 times (120 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-4deg-120rev-bicubicsharper.png)
+
+> **5 degrees**
+>
+> ![rainbow gradient rotated 5 degrees, 10800 times (150 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-5deg-150rev-bicubicsharper.png)
+
+> **6 degrees**
+>
+> ![rainbow gradient rotated 6 degrees, 10800 times (180 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_366x2_rainbow-6deg-180rev-bicubicsharper.png)
 
 ---
 
@@ -86,11 +106,13 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 - Rotating into Oblivion, Rotating Images into Oblivion
 - Growtations, Growthations, Grothations
 - Big Bang, like the expansion of the universe if you just stir it up.
+- Turning into Turing
 
 ### Related / Research / etc.:
 
 - Differential Growth links
 - Emergent behavior
+- reaction diffusion - turing patterns
 
 ---
 
