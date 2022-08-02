@@ -199,7 +199,7 @@ var revsvalue = group7.add('edittext {properties: {name: "revsvalue"}}');
     revsvalue.helpTip = "A layer will be created for every revolution.\nKeep it within reason.";
 
 var iterationstext = group7.add("statictext", undefined, undefined, {name: "iterationstext"}); 
-    iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations    "; 
+    iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations       "; 
     iterationstext.helpTip = "Photoshop will hate you if this is too high.";
 
 // PANEL3
