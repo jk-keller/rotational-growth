@@ -160,7 +160,7 @@ var group6 = panel3.add("group", undefined, {name: "group6"});
     group6.margins = 0; 
 
 var stepsvalue = group6.add('edittext {properties: {name: "stepsvalue"}}'); 
-    stepsvalue.text = "5"; 
+    stepsvalue.text = "72"; 
     stepsvalue.preferredSize.width = 50; 
     stepsvalue.helpTip = "0, 1, 2, 4 do nothing tho.";
 
@@ -209,7 +209,7 @@ var statictext7 = panel3.add("group");
     statictext7.add("statictext", undefined, "show all rotations", {name: "statictext72"}); 
 
 var showrotationvalue = panel3.add('edittext {properties: {name: "showrotationvalue"}}'); 
-    showrotationvalue.text = "0"; 
+    showrotationvalue.text = "1"; 
     showrotationvalue.preferredSize.width = 50; 
     showrotationvalue.helpTip = "A layer will be created for every iteration of these revolutions.";
 
@@ -218,7 +218,7 @@ var divider5 = panel3.add("panel", undefined, undefined, {name: "divider5"});
 
 var layerstext = panel3.add("statictext", undefined, undefined, {name: "layerstext"}); 
     layerstext.text = "Will result in 77 new layers."; 
-    layerstext.graphics.font = ScriptUI.newFont("Arial","BOLD",16);
+    layerstext.graphics.font = ScriptUI.newFont("Arial","BOLD",13);
 
 
 // DIALOG
