@@ -14,17 +14,11 @@
 // DIALOG
 // ======
 var dialog = new Window("dialog"); 
+    dialog.text = "Turning into Turing"; 
     dialog.orientation = "column"; 
     dialog.alignChildren = ["center","top"]; 
     dialog.spacing = 10; 
     dialog.margins = 16; 
-
-var statictext1 = dialog.add("statictext", undefined, undefined, {name: "statictext1"}); 
-    statictext1.text = "Turning into Turing"; 
-    statictext1.justify = "center"; 
-    statictext1.graphics.font = ScriptUI.newFont("Arial","BOLD",28);
-    statictext1.preferredSize.height = 48; 
-
 
 // GROUP1
 // ======
@@ -66,11 +60,8 @@ var radiobutton2 = interpgroup1.add("radiobutton", undefined, undefined, {name: 
 var radiobutton3 = interpgroup1.add("radiobutton", undefined, undefined, {name: "radiobutton3"}); 
     radiobutton3.text = "bicubicSmoother"; 
 
-var divider1 = interpolationpanel.add("panel", undefined, undefined, {name: "divider1"}); 
-    divider1.alignment = "fill"; 
-
 var statictext2 = interpolationpanel.add("statictext", undefined, undefined, {name: "statictext2"}); 
-    statictext2.text = "These two do not make Turing patterns:"; 
+    statictext2.text = "These don’t make Turing patterns:"; 
 
 var interpgroup2 = interpolationpanel.add("group", undefined, {name: "interpgroup2"}); 
     interpgroup2.orientation = "column"; 
@@ -99,6 +90,7 @@ interpgroup2.addEventListener ("click", function () {
 var anchorpanel = group2.add("panel", undefined, undefined, {name: "anchorpanel"}); 
     anchorpanel.text = "Anchor Point"; 
     anchorpanel.orientation = "column"; 
+    anchorpanel.alignment = "fill"; 
     anchorpanel.alignChildren = ["center","top"]; 
     anchorpanel.spacing = 10; 
     anchorpanel.margins = 16; 
@@ -181,12 +173,12 @@ var group6 = panel3.add("group", undefined, {name: "group6"});
     group6.margins = 0; 
 
 var stepsvalue = group6.add('edittext {properties: {name: "stepsvalue"}}'); 
-    stepsvalue.text = "72"; 
+    stepsvalue.text = "6"; 
     stepsvalue.preferredSize.width = 50; 
     stepsvalue.helpTip = "0, 1, 2, 4 do nothing tho.";
 
 var degreestext = group6.add("statictext", undefined, undefined, {name: "degreestext"}); 
-    degreestext.text = "= 5° per step         "; 
+    degreestext.text = "= " + ( Math.round (36000 / Number (stepsvalue.text)) / 100 ) + "° per step         "; 
 
 // PANEL3
 // ======
@@ -207,17 +199,11 @@ var revsvalue = group7.add('edittext {properties: {name: "revsvalue"}}');
     revsvalue.helpTip = "A layer will be created for every revolution.\nKeep it within reason.";
 
 var iterationstext = group7.add("statictext", undefined, undefined, {name: "iterationstext"}); 
-    iterationstext.text = "= 1800 total iterations  "; 
+    iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations    "; 
     iterationstext.helpTip = "Photoshop will hate you if this is too high.";
 
 // PANEL3
 // ======
-var divider2 = panel3.add("panel", undefined, undefined, {name: "divider2"}); 
-    divider2.alignment = "fill"; 
-
-var counterclockwise = panel3.add("checkbox", undefined, undefined, {name: "counterclockwise"}); 
-    counterclockwise.text = "Counter-clockwise"; 
-
 var divider3 = panel3.add("panel", undefined, undefined, {name: "divider3"}); 
     divider3.alignment = "fill"; 
 
@@ -226,8 +212,8 @@ var statictext7 = panel3.add("group");
     statictext7.alignChildren = ["left","center"]; 
     statictext7.spacing = 0; 
 
-    statictext7.add("statictext", undefined, "Number of revolutions to", {name: "statictext7"}); 
-    statictext7.add("statictext", undefined, "show all rotations", {name: "statictext72"}); 
+    statictext7.add("statictext", undefined, "Number of revolutions", {name: "statictext7"}); 
+    statictext7.add("statictext", undefined, "to show all steps", {name: "statictext72"}); 
 
 var showrotationvalue = panel3.add('edittext {properties: {name: "showrotationvalue"}}'); 
     showrotationvalue.text = "1"; 
@@ -238,8 +224,14 @@ var divider5 = panel3.add("panel", undefined, undefined, {name: "divider5"});
     divider5.alignment = "fill"; 
 
 var layerstext = panel3.add("statictext", undefined, undefined, {name: "layerstext"}); 
-    layerstext.text = "Will result in 77 new layers."; 
+    layerstext.text = "Will result in " + Math.ceil (Number (stepsvalue.text) * Number (showrotationvalue.text) + Number (revsvalue.text)) + " new layers.     "; 
     layerstext.graphics.font = ScriptUI.newFont("Arial","BOLD",13);
+
+var divider2 = panel3.add("panel", undefined, undefined, {name: "divider2"}); 
+    divider2.alignment = "fill"; 
+
+var counterclockwise = panel3.add("checkbox", undefined, undefined, {name: "counterclockwise"}); 
+    counterclockwise.text = "Counter-clockwise"; 
 
 
 // DIALOG
@@ -326,6 +318,7 @@ if (dialog.show() == 1) {
                 // duplicate layer and select it
                 var nl_new_layer = app.activeDocument.activeLayer.duplicate();
                 app.activeDocument.activeLayer = nl_new_layer;
+                app.refresh();
 
                 // =======================================================
                 // rotate
