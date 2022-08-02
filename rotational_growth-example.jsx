@@ -393,27 +393,6 @@ if (dialog.show() == 1) {
         // loop for single revolution
         for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
 
-            // // keep track of the current revolution’s rotation
-            // var nl_rev_flag = false;
-            // var nl_temp_degrees = nonlethal_degrees + nonlethal_degree_per;
-            // if (nl_temp_degrees > 360) {
-            // // alert (nl_temp_degrees);
-            //     var nl_diff_degree_per = 360 - nonlethal_degrees;
-            //     nonlethal_degrees -= 360;
-            //     nl_rev_flag = true;
-            // } else if (nl_temp_degrees < -360) {
-            // // alert (nl_temp_degrees);
-            //     var nl_diff_degree_per = -360 - nonlethal_degrees;
-            //     nonlethal_degrees += 360;
-            //     nl_rev_flag = true;
-            // } else if ( nl_temp_degrees == 360 || nl_temp_degrees == -360 ) {
-            //     nonlethal_degrees = 0;
-            //     // duplicate layer and select it
-            //     var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-            //     app.activeDocument.activeLayer = nl_new_layer;
-            // }
-
-
             nonlethal_degrees += nonlethal_degree_per;
 
             // =======================================================
