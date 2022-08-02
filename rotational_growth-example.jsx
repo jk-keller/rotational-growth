@@ -487,3 +487,8 @@ if (dialog.show() == 1) {
     executeAction( idanimationFramesFromLayers, desc8, DialogModes.NO );
 
 } // end show dialog
+
+
+dialog.close();
+// dialog.show();
+// dialog.close();
