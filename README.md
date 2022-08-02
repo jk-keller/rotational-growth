@@ -1,8 +1,8 @@
-# *Turning into Turing*, A Rotational Growth Photoshop Script
+# *Turning into Turing*, A Rotational Growth Photoshop® Script
 
 ## How did this, become this, become that?
 
-Did you know that if you repeatedly rotate an image in Photoshop (likely any app / framework with same interpolation algorithms), it eventually breaks down and may produce something similar to a differential growth alogrithm?
+Did you know that if you repeatedly rotate an image in Photoshop®, it eventually breaks down and may produce a Turing pattern that animates differential growth?
 
 > ***The start:** HSB gradient (hue = 0–360, s = 100, b = 100), 361 × 2 px*
 > 
@@ -14,24 +14,30 @@ Did you know that if you repeatedly rotate an image in Photoshop (likely any app
 
 > ***But THEN:** the start image rotated by 2 degrees, 10800 times (a.k.a 60 full revolutions)*
 > 
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-bicubicsharper.png)
+> ![rainbow gradient rotated 2 degrees, 10'800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-bicubicsharper.png)
 
-It may be hard to believe, but the ***only*** thing I did was rotate the first image thousands of times. See it as an animation: YOUTUBE link.
+It may be hard to believe, but the ***only*** thing I did was rotate the first image thousands of times. See it as an animation:
+
+![animatioin of rainbow gradient rotated 2 degrees, 10'800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-bicubicsharper-reduced.gif)
 
 ---
 
 ## How to
 
-This only works in Photoshop (though I’ll add any other language / app variations I can verify).
+The `jsx` file will only work in Photoshop® (though I’m pretty sure if an app / library uses bicubic interpolation, similar results can be had).
 
 It’s generally good to have a canvas that’s bigger than the image you want to alter, but you can always change that later too. You’ll also probably want to save the file as `Large Document Format` (.psb) before you begin as the file size gets real big, real fast.
 
 - Select a layer to apply the script to.
-- Go to `File` menu, choose `Scripts`, then `Browse…` and select the file you downloaded from here
+- Go to `File` menu, choose `Scripts`, then `Browse…` and select the `rotational_growth.jsx` file
 - You will be prompted to input the settings you would like to use:
-    - Number of degrees of rotation `-360 — 360`. Integer or decimal
-    - Number of revolutions `2 – 300+ (be sane tho)`. Integers only
-    - Interpolation method. One of the four text choices
+    - Interpolation method. The first three produce Turing patterns, the last two don’t
+    - Anchor point location. Best to keep in center in most cases
+    - Number of steps per rotation, e.g. `72 steps` = `5°`. Integers only
+    - Number of total revolutions. Integers only
+    - Number of revolutions to show every frame / iteration. Zero will only show every 360° revolution frame
+    - Whether you want it rotate counter-clockwise or not.
+- The window should show you the number of rotation iterations and new lyers that will be created in the file. I'd keep these low until you understand how long the script can take.
 - Sit back and wait 🍸
 
 ---
@@ -72,53 +78,24 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using nearestNeighbor interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-nearestneighbor.png)
 
-### Degrees (rotated 10800 times):
-
-> **1 degree**
->
-> ![rainbow gradient rotated 1 degrees, 10800 times (30 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-1deg-30rev-bicubicsharper.png)
-
-> **2 degrees**
->
-> ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-bicubicsharper.png)
-
-> **3 degrees**
->
-> ![rainbow gradient rotated 3 degrees, 10800 times (90 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-3deg-90rev-bicubicsharper.png)
-
-> **4 degrees**
->
-> ![rainbow gradient rotated 4 degrees, 10800 times (120 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-4deg-120rev-bicubicsharper.png)
-
-> **5 degrees**
->
-> ![rainbow gradient rotated 5 degrees, 10800 times (150 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-5deg-150rev-bicubicsharper.png)
-
-> **6 degrees**
->
-> ![rainbow gradient rotated 6 degrees, 10800 times (180 revolutions) using bicubicSharper interpolation](zzz--example_images/hsb_361x2_rainbow-6deg-180rev-bicubicsharper.png)
-
 ---
 
 ### Caveats:
 
-- Rotating by 0 (obvs), (-)90, (-)180, (-)270, or (-)360 will produce no real results
+- Rotating by 1, 2, or 4 steps will produce no real results as rotating by 360°, 180°, or 90° are lossless transformations
 - a single pixel, or very small amounts of pixels may not produce any real results
-- same for very tiny degrees of rotation (e.g. .001)
-- small degrees of rotation will take forever, as will large numbers of revolutions
-
-### Possible Titles:
-
-- Rotating into Oblivion, Rotating Images into Oblivion
-- Growtations, Growthations, Grothations
-- Big Bang, like the expansion of the universe if you just stir it up.
-- Turning into Turing
+- large numbers of steps (i.e. very small degrees per step) may also not produce results
+- large numbers of steps will take forever, as will large numbers of revolutions
+- Photoshop will hang, quit, or otherwise be unresponsive. It will hate you.
 
 ### Related / Research / etc.:
 
-- Differential Growth links
-- Emergent behavior
-- reaction diffusion - turing patterns
+- TKTK
+- Helmut Dersch’s [Testing Interpolator Quality](https://www.panotools.org/dersch/interpolator/interpolator.html) from 1999
+- PetaPixel on [Repeated JPEG Rotation](https://petapixel.com/2012/08/14/why-you-should-always-rotate-original-jpeg-photos-losslessly/)
+- [Degrading jpeg images with repeated rotation](https://oioiiooixiii.blogspot.com/2019/08/degrading-jpeg-images-with-repeated.html)
+- [Degradation by rotation](https://www.youtube.com/watch?v=YpT1pMgedcc) using ImageMagick
+- Andrew Werth’s [Turing Patterns in Photoshop](https://archive.bridgesmathart.org/2015/bridges2015-459.pdf)
 
 ---
 
