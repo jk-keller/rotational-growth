@@ -233,6 +233,9 @@ var divider2 = panel3.add("panel", undefined, undefined, {name: "divider2"});
 var counterclockwise = panel3.add("checkbox", undefined, undefined, {name: "counterclockwise"}); 
     counterclockwise.text = "Counter-clockwise"; 
 
+var backandforth = panel3.add("checkbox", undefined, undefined, {name: "backandforth"}); 
+    backandforth.text = "Back and forth revolutions"; 
+
 
 // DIALOG
 // ======
@@ -301,12 +304,12 @@ function selected_anchorpointname(agroup) {
 }
 
 if (dialog.show() == 1) {
-    var nonlethal_steps_per = stepsvalue.text;
-    var nonlethal_degree_per = 360 / stepsvalue.text;
-    var nonlethal_revolutions = revsvalue.text;
+    var nonlethal_steps_per = Number(stepsvalue.text);
+    var nonlethal_degree_per = 360 / Number(stepsvalue.text);
+    var nonlethal_revolutions = Number(revsvalue.text);
     var nonlethal_interpolation = selected_interpolation(interpolationpanel);
 
-    var nonlethal_show_all = showrotationvalue.text;
+    var nonlethal_show_all = Number(showrotationvalue.text);
     var nonlethal_anchorpoint = selected_anchorpoint(anchorpanel);
     var nonlethal_anchorpointname = selected_anchorpointname(anchorpanel);
     if (counterclockwise.value == true) {
@@ -324,6 +327,12 @@ if (dialog.show() == 1) {
 
         // loop for first few revolutions
         for (var nl_i=0; nl_i<nonlethal_show_all; nl_i++) {
+
+            if (backandforth.value == true) {
+                if (nl_i > 0) {
+                    nonlethal_degree_per *= -1;
+                }
+            }
 
             // loop for single revolution
             for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
@@ -383,6 +392,12 @@ if (dialog.show() == 1) {
 
     // loop for number of revolutions
     for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
+
+        if (backandforth.value == true) {
+            if (nl_i > nonlethal_show_all) {
+                nonlethal_degree_per *= -1;
+            }
+        }
 
         if (nl_i % 10 == 0) {
             app.activeDocument.save();
