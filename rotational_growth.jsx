@@ -173,7 +173,7 @@ var group6 = panel3.add("group", undefined, {name: "group6"});
     group6.margins = 0; 
 
 var stepsvalue = group6.add('edittext {properties: {name: "stepsvalue"}}'); 
-    stepsvalue.text = "6"; 
+    stepsvalue.text = "72"; 
     stepsvalue.preferredSize.width = 50; 
     stepsvalue.helpTip = "0, 1, 2, 4 do nothing tho.";
 
