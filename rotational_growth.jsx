@@ -319,8 +319,12 @@ if (dialog.show() == 1) {
     // initialize variables
     var nonlethal_iterations = 0;  // the current number of times the image is rotated
     var nonlethal_degrees = 0;     // the current amount of degree rotation
+    var nonlethal_backforth = "";   // add backforth to layer name if that's what it's doing
+    if (backandforth.value == true) {
+        nonlethal_backforth = " - backforth";
+    }
 
-    app.activeDocument.activeLayer.name = "start layer - " + nonlethal_interpolation + " - " + nonlethal_anchorpointname;
+    app.activeDocument.activeLayer.name = "start layer - " + nonlethal_interpolation + " - " + nonlethal_anchorpointname + nonlethal_backforth;
 
     // show the first few revolutions’ rotation
     if ( nonlethal_show_all > 0 ) {
