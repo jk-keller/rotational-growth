@@ -260,14 +260,14 @@ var button2 = group8.add("button", undefined, "Rotate!", {name: "ok"});
 
 
 
-function numOfIterations() {
+function set_iterations_text() {
     iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations";
 }
-numOfIterations();
-function numOfLayers() {
+set_iterations_text();
+function set_layers_text() {
     layerstext.text = "Will result in " + Math.ceil ( ((Number (stepsvalue.text) * Number (showrotationvalue.text)) / 30) + Number (revsvalue.text) ) + " new layers!!";
 }
-numOfLayers();
+set_layers_text();
 
 limitlayers.onChinging = function () {
     if (limitlayers.value == true) {
@@ -275,22 +275,31 @@ limitlayers.onChinging = function () {
     } else {
         limitMod = 1;
     }
-    numOfLayers();
+    set_layers_text();
 }
 revsvalue.onChanging = function () {
-    numOfIterations();
-    numOfLayers();
+    set_iterations_text();
+    set_layers_text();
 };
 stepsvalue.onChanging = function () {
     degreestext.text = "= " + ( Math.round (36000 / Number (stepsvalue.text)) / 100 ) + "° per step";
-    numOfIterations();
-    numOfLayers();
+    set_iterations_text();
+    set_layers_text();
 };
 showrotationvalue.onChanging = function () {
-    numOfLayers();
+    set_layers_text();
 };
 
 
+
+function selected_interpolation(agroup) {
+    for (var i = 0; i < interpgroup1.children.length; i++) {
+        if (interpgroup1.children[i].value == true) { return interpgroup1.children[i].text;}
+    }
+    for (var j = 0; j < interpgroup2.children.length; j++) {
+        if (interpgroup2.children[j].value == true) { return interpgroup2.children[j].text;}
+    }
+}
 var anchorsarray = [
     ["QCSCorner0","QCSSide0","QCSCorner1"],
     ["QCSSide3","QCSAverage","QCSSide1"],
@@ -301,15 +310,6 @@ var anchorsnamesarray = [
     ["Left","Center","Right"],
     ["Bottom Left","Bottom","Bottom Right"]
 ];
-
-function selected_interpolation(agroup) {
-    for (var i = 0; i < interpgroup1.children.length; i++) {
-        if (interpgroup1.children[i].value == true) { return interpgroup1.children[i].text;}
-    }
-    for (var j = 0; j < interpgroup2.children.length; j++) {
-        if (interpgroup2.children[j].value == true) { return interpgroup2.children[j].text;}
-    }
-}
 function selected_anchorpoint(agroup) {
     for (var i = 0; i < agroup.children.length; i++) {
         for (var j = 0; j < 3; j++) {
@@ -324,6 +324,54 @@ function selected_anchorpointname(agroup) {
         }
     }
 }
+
+function rotate_layer(a_degree_per, a_anchorpoint, a_interpolation) {
+    // =======================================================
+    // rotate
+    var idtransform = stringIDToTypeID( "transform" );
+        var desc7 = new ActionDescriptor();
+        var idnull = stringIDToTypeID( "null" );
+            var ref11 = new ActionReference();
+            var idlayer = stringIDToTypeID( "layer" );
+            var idordinal = stringIDToTypeID( "ordinal" );
+            var idtargetEnum = stringIDToTypeID( "targetEnum" );
+            ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
+        desc7.putReference( idnull, ref11 );
+        var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
+        var idquadCenterState = stringIDToTypeID( "quadCenterState" );
+        var idQCSAverage = stringIDToTypeID( a_anchorpoint );
+        desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
+        var idoffset = stringIDToTypeID( "offset" );
+            var desc23 = new ActionDescriptor();
+            var idhorizontal = stringIDToTypeID( "horizontal" );
+            var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+            desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
+            var idvertical = stringIDToTypeID( "vertical" );
+            var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+            desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
+        var idoffset = stringIDToTypeID( "offset" );
+        desc7.putObject( idoffset, idoffset, desc23 );
+        var idangle = stringIDToTypeID( "angle" );
+        var idangleUnit = stringIDToTypeID( "angleUnit" );
+        desc7.putUnitDouble( idangle, idangleUnit, a_degree_per );
+        var idlinked = stringIDToTypeID( "linked" );
+        desc7.putBoolean( idlinked, true );
+        var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
+        var idinterpolationType = stringIDToTypeID( "interpolationType" );
+        var idbicubicSharper = stringIDToTypeID( a_interpolation );
+        desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
+    executeAction( idtransform, desc7, DialogModes.NO );
+};
+
+function write_layer_name(a_new_layer, a_degree_per, a_iterations) {
+    a_new_layer.name = "rotated " + a_iterations + " iterations of " + (Math.round(a_degree_per*100)/100) + "° equals " + (Math.round((a_iterations * a_degree_per)*100)/100) + "°";
+}
+
+function dupe_select_layer() {
+    nl_new_layer = app.activeDocument.activeLayer.duplicate();
+    app.activeDocument.activeLayer = nl_new_layer;
+}
+
 
 if (dialog.show() == 1) {
     var nonlethal_steps_per = Number(stepsvalue.text);
@@ -365,59 +413,17 @@ if (dialog.show() == 1) {
 
                 if (limitlayers.value == true) {
                     if (nl_j % 30 == 0) {
-                        // =======================================================
-                        // duplicate layer and select it
-                        var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-                        app.activeDocument.activeLayer = nl_new_layer;
-                        // app.refresh();
+                        dupe_select_layer()
                     }
                 } else {
-                    // =======================================================
-                    // duplicate layer and select it
-                    var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-                    app.activeDocument.activeLayer = nl_new_layer;
-                    // app.refresh();
+                    dupe_select_layer()
                 }
 
-                // =======================================================
-                // rotate
-                var idtransform = stringIDToTypeID( "transform" );
-                    var desc7 = new ActionDescriptor();
-                    var idnull = stringIDToTypeID( "null" );
-                        var ref11 = new ActionReference();
-                        var idlayer = stringIDToTypeID( "layer" );
-                        var idordinal = stringIDToTypeID( "ordinal" );
-                        var idtargetEnum = stringIDToTypeID( "targetEnum" );
-                        ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
-                    desc7.putReference( idnull, ref11 );
-                    var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
-                    var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-                    var idQCSAverage = stringIDToTypeID( nonlethal_anchorpoint );
-                    desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
-                    var idoffset = stringIDToTypeID( "offset" );
-                        var desc23 = new ActionDescriptor();
-                        var idhorizontal = stringIDToTypeID( "horizontal" );
-                        var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                        desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
-                        var idvertical = stringIDToTypeID( "vertical" );
-                        var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                        desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
-                    var idoffset = stringIDToTypeID( "offset" );
-                    desc7.putObject( idoffset, idoffset, desc23 );
-                    var idangle = stringIDToTypeID( "angle" );
-                    var idangleUnit = stringIDToTypeID( "angleUnit" );
-                    desc7.putUnitDouble( idangle, idangleUnit, nonlethal_degree_per );
-                    var idlinked = stringIDToTypeID( "linked" );
-                    desc7.putBoolean( idlinked, true );
-                    var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
-                    var idinterpolationType = stringIDToTypeID( "interpolationType" );
-                    var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
-                    desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
-                executeAction( idtransform, desc7, DialogModes.NO );
+                rotate_layer(nonlethal_degree_per, nonlethal_anchorpoint, nonlethal_interpolation)
 
                 nonlethal_iterations++;
 
-                nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + (Math.round(nonlethal_degree_per*100)/100) + "° equals " + (Math.round((nonlethal_iterations * nonlethal_degree_per)*100)/100) + "°";
+                write_layer_name(nl_new_layer, nonlethal_degree_per, nonlethal_iterations)
 
             } // end loop for single revolution
 
@@ -439,10 +445,7 @@ if (dialog.show() == 1) {
             app.activeDocument.save();
         }
 
-        // =======================================================
-        // duplicate layer and select it
-        var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-        app.activeDocument.activeLayer = nl_new_layer;
+        dupe_select_layer()
 
 
         // loop for single revolution
@@ -450,45 +453,11 @@ if (dialog.show() == 1) {
 
             nonlethal_degrees += nonlethal_degree_per;
 
-            // =======================================================
-            // rotate
-            var idtransform = stringIDToTypeID( "transform" );
-                var desc7 = new ActionDescriptor();
-                var idnull = stringIDToTypeID( "null" );
-                    var ref11 = new ActionReference();
-                    var idlayer = stringIDToTypeID( "layer" );
-                    var idordinal = stringIDToTypeID( "ordinal" );
-                    var idtargetEnum = stringIDToTypeID( "targetEnum" );
-                    ref11.putEnumerated( idlayer, idordinal, idtargetEnum );
-                desc7.putReference( idnull, ref11 );
-                var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
-                var idquadCenterState = stringIDToTypeID( "quadCenterState" );
-                var idQCSAverage = stringIDToTypeID( nonlethal_anchorpoint );
-                desc7.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSAverage );
-                var idoffset = stringIDToTypeID( "offset" );
-                    var desc23 = new ActionDescriptor();
-                    var idhorizontal = stringIDToTypeID( "horizontal" );
-                    var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                    desc23.putUnitDouble( idhorizontal, idpixelsUnit, 0.000000 );
-                    var idvertical = stringIDToTypeID( "vertical" );
-                    var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
-                    desc23.putUnitDouble( idvertical, idpixelsUnit, 0.000000 );
-                var idoffset = stringIDToTypeID( "offset" );
-                desc7.putObject( idoffset, idoffset, desc23 );
-                var idangle = stringIDToTypeID( "angle" );
-                var idangleUnit = stringIDToTypeID( "angleUnit" );
-                desc7.putUnitDouble( idangle, idangleUnit, nonlethal_degree_per );
-                var idlinked = stringIDToTypeID( "linked" );
-                desc7.putBoolean( idlinked, true );
-                var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
-                var idinterpolationType = stringIDToTypeID( "interpolationType" );
-                var idbicubicSharper = stringIDToTypeID( nonlethal_interpolation );
-                desc7.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
-            executeAction( idtransform, desc7, DialogModes.NO );
+            rotate_layer(nonlethal_degree_per, nonlethal_anchorpoint, nonlethal_interpolation)
 
             nonlethal_iterations++;
 
-            nl_new_layer.name = "rotated " + nonlethal_iterations + " iterations of " + (Math.round(nonlethal_degree_per*100)/100) + "° equals " + (Math.round((nonlethal_iterations * nonlethal_degree_per)*100)/100) + "°";
+            write_layer_name(nl_new_layer, nonlethal_degree_per, nonlethal_iterations)
 
         } // end loop for single revolution
 
