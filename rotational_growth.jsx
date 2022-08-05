@@ -171,11 +171,12 @@ var rowStepsDegrees = rightInputColumn.add("group", undefined, {name: "rowStepsD
 
 var inputStepsValue = rowStepsDegrees.add('edittext {properties: {name: "inputStepsValue"}}'); 
 	inputStepsValue.text = "72"; 
-	inputStepsValue.preferredSize.width = 50; 
+	inputStepsValue.characters = 5; 
 	inputStepsValue.helpTip = "0, 1, 2, 4 do nothing tho.";
 
 var dynamicDegrees = rowStepsDegrees.add("statictext", undefined, undefined, {name: "dynamicDegrees"});
 	// text defined in function later
+	dynamicDegrees.preferredSize.width = 200; 
 
 var staticNumberRevs = rightInputColumn.add("statictext", undefined, undefined, {name: "staticNumberRevs"}); 
 	staticNumberRevs.text = "× Number of revolutions"; 
@@ -188,11 +189,12 @@ var rowRevsTotalIterations = rightInputColumn.add("group", undefined, {name: "ro
 
 var inputRevsValue = rowRevsTotalIterations.add('edittext {properties: {name: "inputRevsValue"}}'); 
 	inputRevsValue.text = "5"; 
-	inputRevsValue.preferredSize.width = 50; 
+	inputRevsValue.characters = 5; 
 	inputRevsValue.helpTip = "A layer will be created for every revolution.\nKeep it within reason.";
 
 var dynamicTotalIterations = rowRevsTotalIterations.add("statictext", undefined, undefined, {name: "dynamicTotalIterations"}); 
 	// text defined in function later
+	dynamicTotalIterations.preferredSize.width = 180; 
 	dynamicTotalIterations.helpTip = "Photoshop will hate you if this is too high.";
 
 var dividerA = rightInputColumn.add("panel", undefined, undefined, {name: "dividerA"}); 
@@ -209,10 +211,10 @@ var staticNumShowAll = rowNumShowAll.add("statictext", undefined, undefined, {na
 
 var inputShowRotationValue = rightInputColumn.add('edittext {properties: {name: "inputShowRotationValue"}}'); 
 	inputShowRotationValue.text = "1"; 
-	inputShowRotationValue.preferredSize.width = 50; 
+	inputShowRotationValue.characters = 5; 
 	inputShowRotationValue.helpTip = "A layer will be created for every iteration of these revolutions.";
 
-var limitModStart = 30;
+var limitModStart = 48;
 var limitMod = 1;
 var boolLimitLayers = rightInputColumn.add("checkbox", undefined, undefined, {name: "boolLimitLayers"}); 
 	boolLimitLayers.text = "Limit new layers to every "+limitModStart+" steps"; 
@@ -223,6 +225,7 @@ var dividerB = rightInputColumn.add("panel", undefined, undefined, {name: "divid
 var dynamicNewLayers = rightInputColumn.add("statictext", undefined, undefined, {name: "dynamicNewLayers"}); 
 	dynamicNewLayers.graphics.font = ScriptUI.newFont("Arial","BOLD",13);
 	// text defined in function later
+	dynamicNewLayers.preferredSize.width = 240; 
 
 var dividerC = rightInputColumn.add("panel", undefined, undefined, {name: "dividerC"}); 
 	dividerC.alignment = "fill"; 
