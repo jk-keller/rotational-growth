@@ -411,10 +411,8 @@ if (dialog.show() == 1) {
 		for (var nl_i=0; nl_i<nonlethal_show_all; nl_i++) {
 
 			// flip pos/neg if doing back and forth
-			if (boolBackAndForth.value == true) {
-				if (nl_i > 0) {
-					nonlethal_degree_per *= -1;
-				}
+			if (boolBackAndForth.value == true && nl_i > 0) {
+				nonlethal_degree_per *= -1;
 			}
 
 			// loop for steps
@@ -448,10 +446,8 @@ if (dialog.show() == 1) {
 	// loop for revolutions
 	for (var nl_i=nonlethal_show_all; nl_i<nonlethal_revolutions; nl_i++) {
 
-		if (boolBackAndForth.value == true) {
-			if (nl_i > nonlethal_show_all) {
-				nonlethal_degree_per *= -1;
-			}
+		if (boolBackAndForth.value == true && nl_i > nonlethal_show_all) {
+			nonlethal_degree_per *= -1;
 		}
 
 		if (nl_i % 10 == 0) {
