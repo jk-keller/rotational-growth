@@ -212,13 +212,17 @@ var statictext7 = panel3.add("group");
     statictext7.alignChildren = ["left","center"]; 
     statictext7.spacing = 0; 
 
-    statictext7.add("statictext", undefined, "Number of revolutions", {name: "statictext7"}); 
-    statictext7.add("statictext", undefined, "to show all steps", {name: "statictext72"}); 
+    statictext7.add("statictext", undefined, "Number of revolutions to show all steps", {name: "statictext72"}); 
 
 var showrotationvalue = panel3.add('edittext {properties: {name: "showrotationvalue"}}'); 
     showrotationvalue.text = "1"; 
     showrotationvalue.preferredSize.width = 50; 
     showrotationvalue.helpTip = "A layer will be created for every iteration of these revolutions.";
+
+var limitMod = 30; // also change in limitLayers.onchanging
+var limitlayers = panel3.add("checkbox", undefined, undefined, {name: "limitlayers"}); 
+    limitlayers.text = "Limit new layers to every "+limitMod+" steps"; 
+    limitlayers.value = true; 
 
 var divider5 = panel3.add("panel", undefined, undefined, {name: "divider5"}); 
     divider5.alignment = "fill"; 
@@ -255,17 +259,35 @@ var button1 = group8.add("button", undefined, "Cancel", {name: "cancel"});
 var button2 = group8.add("button", undefined, "Rotate!", {name: "ok"}); 
 
 
-revsvalue.onChanging = function () {
+
+function numOfIterations() {
     iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations";
-    layerstext.text = "Will result in " + Math.ceil (Number (stepsvalue.text) * Number (showrotationvalue.text) + Number (revsvalue.text)) + " new layers!!";
+}
+numOfIterations();
+function numOfLayers() {
+    layerstext.text = "Will result in " + Math.ceil ( ((Number (stepsvalue.text) * Number (showrotationvalue.text)) / 30) + Number (revsvalue.text) ) + " new layers!!";
+}
+numOfLayers();
+
+limitlayers.onChinging = function () {
+    if (limitlayers.value == true) {
+        limitMod = 30;
+    } else {
+        limitMod = 1;
+    }
+    numOfLayers();
+}
+revsvalue.onChanging = function () {
+    numOfIterations();
+    numOfLayers();
 };
 stepsvalue.onChanging = function () {
     degreestext.text = "= " + ( Math.round (36000 / Number (stepsvalue.text)) / 100 ) + "° per step";
-    iterationstext.text = "= " + Math.ceil (Number (stepsvalue.text) * Number (revsvalue.text)) + " total iterations";
-    layerstext.text = "Will result in " + Math.ceil (Number (stepsvalue.text) * Number (showrotationvalue.text) + Number (revsvalue.text)) + " new layers!!";
+    numOfIterations();
+    numOfLayers();
 };
 showrotationvalue.onChanging = function () {
-    layerstext.text = "Will result in " + Math.ceil (Number (stepsvalue.text) * Number (showrotationvalue.text) + Number (revsvalue.text)) + " new layers";
+    numOfLayers();
 };
 
 
@@ -341,11 +363,21 @@ if (dialog.show() == 1) {
             // loop for single revolution
             for (var nl_j=0; nl_j<nonlethal_steps_per; nl_j++) {
 
-                // =======================================================
-                // duplicate layer and select it
-                var nl_new_layer = app.activeDocument.activeLayer.duplicate();
-                app.activeDocument.activeLayer = nl_new_layer;
-                // app.refresh();
+                if (limitlayers.value == true) {
+                    if (nl_j % 30 == 0) {
+                        // =======================================================
+                        // duplicate layer and select it
+                        var nl_new_layer = app.activeDocument.activeLayer.duplicate();
+                        app.activeDocument.activeLayer = nl_new_layer;
+                        // app.refresh();
+                    }
+                } else {
+                    // =======================================================
+                    // duplicate layer and select it
+                    var nl_new_layer = app.activeDocument.activeLayer.duplicate();
+                    app.activeDocument.activeLayer = nl_new_layer;
+                    // app.refresh();
+                }
 
                 // =======================================================
                 // rotate
