@@ -420,7 +420,7 @@ if (dialog.show() == 1) {
 
 				// dupe layers based on limit checkbox
 				if (boolLimitLayers.value == true) {
-					if (nl_j % 30 == 0) {
+					if (nl_j % limitMod == 0) {
 						dupe_select_layer()
 					}
 				} else {
