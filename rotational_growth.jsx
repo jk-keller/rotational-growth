@@ -541,11 +541,11 @@ if (dialog.show() == 1) {
         var desc8 = new ActionDescriptor();
     executeAction( idanimationFramesFromLayers, desc8, DialogModes.NO );
 
+    app.activeDocument.save();
+
 } // end show dialog
 
 
 dialog.close();
 // dialog.show();
 // dialog.close();
-
-app.activeDocument.save();
