@@ -68,7 +68,7 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 >
 > ![rainbow gradient rotated 2 degrees, 10800 times (60 revolutions) using bicubicSmoother interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-60rev-bicubicsmoother.png)
 
-> **bilineer**
+> **bilinear**
 >
 > ![rainbow gradient rotated 2 degrees, 360 times (2 revolutions) using bilinear interpolation](zzz--example_images/hsb_361x2_rainbow-2deg-2rev-bilinear.png)
 >
@@ -84,7 +84,7 @@ It’s generally good to have a canvas that’s bigger than the image you want t
 
 ### Caveats:
 
-- I haven't put in any input validation yet, so it may throw unhelpful errors.
+- I haven’t put in any input validation yet, so it may throw unhelpful errors.
 - Rotating by 1, 2, or 4 steps will produce no real results as rotating by 360°, 180°, or 90° are lossless transformations
 - a single pixel, or very small amounts of pixels may not produce any real results
 - large numbers of steps (i.e. very small degrees per step) may also not produce results
